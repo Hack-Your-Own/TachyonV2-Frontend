@@ -2,7 +2,7 @@
 
 1. Download Node.js if you haven't already
 2. cd into Backend directory and run `npm install`
-3. Retrieve .env file is in the **HYO GDrive/Engineering/Tachyon** and place it inside **Backend**
+3. Retrieve .env file from **HYO GDrive/Engineering/Tachyon** and place it inside **Backend**
 4. Run either `node app.js` or `nodemon app.js` if you want monitoring on
 5. PROFIT
 
