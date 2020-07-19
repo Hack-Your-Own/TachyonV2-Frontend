@@ -7,7 +7,7 @@
 # Structure 
 - `index.js` is the "index" and renders the root component
 - `App.js` has the "App" which is the root component
- 
+- `App.js` has a basic [React Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/fundamentals/) setup for now
 
 # Contribution Guide
 
