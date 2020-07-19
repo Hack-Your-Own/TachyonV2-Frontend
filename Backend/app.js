@@ -7,6 +7,10 @@ const connectDb = () => {
     return mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 };
 
+// Enables cors support
+const cors = require('cors');
+app.use(cors());
+
 app.get('/', function (req, res) {
     return res.send('Hello world');
 });
