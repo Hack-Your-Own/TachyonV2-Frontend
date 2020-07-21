@@ -2,6 +2,7 @@
  - `cd` to `frontend/`
  - run `yarn install`
  - run `yarn start`  to start the frontend server
+ **Make sure the backend server is running**
 
 
 # Structure 
