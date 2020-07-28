@@ -17,7 +17,14 @@ const studentSchema = new mongoose.Schema(
     },
     name: {
         type: String,
-        unique: true,
+        required: true,
+    },
+    region: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
         required: true,
     },
     pronouns: {
@@ -64,6 +71,22 @@ const studentSchema = new mongoose.Schema(
         type: Number,
         required: true,
     },
+    commitment_level: {
+        type: String,
+        required: true,
+    },
+    current_engagements: {
+        type: String,
+        required: true,
+    },
+    short_essay: {
+        type: String,
+        required: true,
+    },
+    ideal_finish_date: {
+        type: Date,
+        required: true,
+    },
     in_five_years: {
         type: String,
         required: true,
@@ -78,7 +101,6 @@ const studentSchema = new mongoose.Schema(
     },
     linkedin: {
         type: String,
-        unique: true,
         required: true,
     },
     demographics: {
