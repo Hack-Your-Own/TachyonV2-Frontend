@@ -114,6 +114,10 @@ const user_schema = {
     // "questions": 1
 }
 
+// Enables cors support
+const cors = require('cors');
+app.use(cors());
+
 app.get('/', function (req, res) {
   return res.send('Hello world');
 });
