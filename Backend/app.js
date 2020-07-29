@@ -71,7 +71,7 @@ function getNewToken(oAuth2Client, callback) {
 const user_schema = {
     1 : {name: "discord", type: "string", isArray: false},
     2 : {name: "firstname", type: "string", isArray: false},
-    3 : {name: "region", type: "string", isArray: false}
+    3 : {name: "region", type: "string", isArray: false},
     // "timestamp" : 0,
     // "email": 1,
     // "discord": 2,
