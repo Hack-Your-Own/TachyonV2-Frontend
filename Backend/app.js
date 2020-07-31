@@ -69,43 +69,36 @@ function getNewToken(oAuth2Client, callback) {
 
 
 const user_schema = {
-    1 : {name: "discord", type: "string", isArray: false},
-    2 : {name: "firstname", type: "string", isArray: false},
-    3 : {name: "region", type: "string", isArray: false},
-    // "timestamp" : 0,
-    // "email": 1,
-    // "discord": 2,
-    // "name": 3,
-    // "region": 4,
-    // "city": 5,
-    // "pronouns": 1,
-    // "status": 1,
-    // "goals": 1,
-    // "interest": 1,
-    // "skills": 1,
-    // "other_langs": 1,
-    // "importance_spec_lang": 1,
-    // "work_with_tech": 1,
-    // "idea_pitch": 1,
-    // "would_lead": 1,
-    // "time_commitment": 1,
-    // "commitment_level": 1,
-    // "current_engagements": 1,
-    // "short_essay": 1,
-    // "ideal_finish_date": 1,
-    // "in_five_years": 1,
-    // "timezone": 1,
-    // "college_year": 1,
-    // "linkedin": 1,
-    // "demographics": 1,
-    // "preferences_tech": 1,
-    // "preferences_team": 1,
-    // "start_date": 1,
-    // "drop_agreement": 1,
-    // "rules_agreement": 1,
-    // "tips": 1,
-    // "questions": 1
-}
+  0 : { name: "timestamp",        type: "string",   isArray: false }, //regex, possibly array [year, month, day, time]
+  1 : { name: "group",            type: "integer",  isArray: false },
+  2 : { name: "discord",          type: "string",   isArray: false },
+  3 : { name: "email",            type: "string",   isArray: false },
+  4 : { name: "name",             type: "string",   isArray: false },
+  5 : { name: "time_zone",        type: "string",   isArray: false },
+  6 : { name: "start_date",       type: "string",   isArray: false },
+  7 : { name: "pronouns",         type: "string",   isArray: false },
+  8 : { name: "introduction",     type: "string",   isArray: false },
+  9 : { name: "goals",            type: "integer",  isArray: true  },
+  10: { name: "track",            type: "integer",  isArray: true  },
+  11: { name: "lang_skills",      type: "integer",  isArray: true  },
+  12: { name: "other_langs",      type: "string",   isArray: true  }, // ??? maybe
+  13: { name: "area_of_interest", type: "string",   isArray: false },
+  14: { name: "other_tech",       type: "string",   isArray: true  },
+  15: { name: "proj_ideas",       type: "string",   isArray: true  }, // maybe array if more than one idea
+  16: { name: "proj_lead",        type: "boolean",  isArray: false },
+  17: { name: "time",             type: "integer",  isArray: false }, // hours/week
+  18: { name: "5_years",          type: "string",   isArray: false },
+  19: { name: "year_college",     type: "integer",  isArray: false },
+  20: { name: "linkedin",         type: "string",   isArray: false },
+  21: { name: "dev_envs",         type: "string",   isArray: true  },
+  22: { name: "demographics",     type: "string",   isArray: false },
+  23: { name: "tech_pref",        type: "string",   isArray: false },
+  24: { name: "partner_pref",     type: "string",   isArray: false },
+  25: { name: "commit_agreement", type: "boolean",  isArray: false },
+  26: { name: "rules_agreement",  type: "boolean",  isArray: false },
+  27: { name: "team_tips",        type: "string",   isArray: false },
+  28: { name: "waitlist",         type: "boolean",  isArray: false }
+};
 
 // Enables cors support
 const cors = require('cors');
