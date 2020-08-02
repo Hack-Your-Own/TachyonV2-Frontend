@@ -1,140 +1,197 @@
 const mongoose = require('mongoose'); 
 const studentSchema = new mongoose.Schema(
   {
-    timestamp: {
-      type: Date,
-      required: true,
-    }, 
+    //0
     email: {
         type: String,
-        unique: true,
-        required: true,
+        required: true
     },
+
+    //1
     discord: {
         type: String,
-        unique: true,
-        required: true,
+        required: true
     },
+    
+    //2
     name: {
         type: String,
-        required: true,
+        required: true
     },
+
+    //3
     region: {
-        type: String,
-        required: true,
+        type: Number,
+        required: true
     },
-    city: {
-        type: String,
-        required: true,
+
+    //4
+    location: {
+        type: Array[String],
+        required: true
     },
+
+    //5
     pronouns: {
         type: String,
-        required: true,
+        required: true
     },
-    status: {
+
+    //6
+    introduction: {
         type: String,
-        required: true,
+        required: true
     },
+
+    //7
+    five_years: {
+        type: String,
+        required: true
+    },
+
+    //8
     goals: {
-        type: Array,
-        required: true,
+        type: Array[Number],
+        required: true
     },
-    interest: {
+
+    //9
+    track: {
+        type: Array[Number],
+        required: true
+    },
+
+    //10
+    year_school: {
         type: String,
-        required: true,
+        required: true
     },
-    skills: {
-        type: Array,
-        required: true,
+
+    //11
+    lang_prefs: {
+        type: Array[Number],
+        required: false
     },
-    other_langs: {
-        type: String,
-        required: true,
+
+    //12
+    interest_skills: {
+        type: Array[Number],
+        required: false
     },
-    importance_spec_lang: {
+
+    //13
+    lang_importance: {
         type: Number,
-        required: true,
+        required: false
     },
-    work_with_tech: {
-        type: Array,
-        required: true,
-    },
-    idea_pitch: {
+
+    //14
+    lang_preference: {
         type: String,
-        required: true,
+        required: false
     },
-    would_lead: {
+
+    //15
+    project_ideas: {
         type: String,
-        required: true,
+        required: false
     },
-    time_commitment: {
+
+    //16
+    team_lead: {
         type: Number,
-        required: true,
+        required: true
     },
-    commitment_level: {
+
+    //17
+    hours_per_week: {
+        type: Number,
+        required: false
+    },
+
+    //18
+    commitment_lev: {
+        type: Number,
+        required: false
+    },
+
+    //19
+    commitment_exp: {
         type: String,
-        required: true,
+        required: false
     },
-    current_engagements: {
+
+    //20
+    meet_per_week: {
         type: String,
-        required: true,
+        required: true
     },
-    short_essay: {
+
+    //21
+    curr_responsible: {
         type: String,
-        required: true,
+        required: true
     },
-    ideal_finish_date: {
-        type: Date,
-        required: true,
+
+    //22
+    start_date: {
+        type: Array[Number],
+        required: false
     },
-    in_five_years: {
+
+    //23
+    end_date: {
+        type: Array[Number],
+        required: false
+    },
+
+    //24
+    bring_to_team: {
+        type: String, 
+        required: false
+    },
+
+    //25
+    professional_link: {
         type: String,
-        required: true,
+        required: false
     },
-    timezone: {
-        type: String,
-        required: true,
-    },
-    college_year: {
-        type: String,
-        required: true,
-    },
-    linkedin: {
-        type: String,
-        required: true,
-    },
+
+    //26
     demographics: {
         type: String,
-        required: true,
+        required: false
     },
-    preferences_tech: {
+
+    //27
+    partner_prefs: {
         type: String,
-        required: true,
+        required: false
     },
-    preferences_team: {
+
+    //28
+    commit_agreement: {
+        type: Boolean,
+        required: true
+    },
+
+    //29
+    team_agreement: {
         type: String,
-        required: true,
+        required: false 
     },
-    start_date: {
-        type: String,
-        required: true,
-    },
-    drop_agreement: {
-        type: String,
-        required: true,
-    },
+
+    //30
     rules_agreement: {
-        type: String,
-        required: true,
+        type: Boolean,
+        required: true
     },
+
+    //31
     tips: {
         type: String,
-        required: true,
-    },
-    questions: {
-        type: String,
-        required: true,
-    },
+        required: false
+    }
 
   },
   { timestamps: true },

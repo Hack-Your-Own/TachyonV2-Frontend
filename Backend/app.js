@@ -69,43 +69,39 @@ function getNewToken(oAuth2Client, callback) {
 
 
 const user_schema = {
-    1 : {name: "discord", type: "string", isArray: false},
-    2 : {name: "firstname", type: "string", isArray: false},
-    3 : {name: "region", type: "string", isArray: false},
-    // "timestamp" : 0,
-    // "email": 1,
-    // "discord": 2,
-    // "name": 3,
-    // "region": 4,
-    // "city": 5,
-    // "pronouns": 1,
-    // "status": 1,
-    // "goals": 1,
-    // "interest": 1,
-    // "skills": 1,
-    // "other_langs": 1,
-    // "importance_spec_lang": 1,
-    // "work_with_tech": 1,
-    // "idea_pitch": 1,
-    // "would_lead": 1,
-    // "time_commitment": 1,
-    // "commitment_level": 1,
-    // "current_engagements": 1,
-    // "short_essay": 1,
-    // "ideal_finish_date": 1,
-    // "in_five_years": 1,
-    // "timezone": 1,
-    // "college_year": 1,
-    // "linkedin": 1,
-    // "demographics": 1,
-    // "preferences_tech": 1,
-    // "preferences_team": 1,
-    // "start_date": 1,
-    // "drop_agreement": 1,
-    // "rules_agreement": 1,
-    // "tips": 1,
-    // "questions": 1
-}
+  0 : { name: "email",            type: "string",   isArray: false },
+  1 : { name: "discord",          type: "string",   isArray: false },
+  2 : { name: "name",             type: "string",   isArray: false },
+  3 : { name: "region",           type: "integer",  isArray: false }, //3 options
+  4 : { name: "location",         type: "string",   isArray: false }, 
+  5 : { name: "pronouns",         type: "string",   isArray: false }, //bullet option with other ______ 
+  6 : { name: "introduction",     type: "string",   isArray: false },
+  7 : { name: "five_years",       type: "string",   isArray: false },
+  8 : { name: "goals",            type: "integer",  isArray: true  },
+  9 : { name: "track",            type: "integer",  isArray: true  }, // if chose project track then array length will be 2 
+  10: { name: "year_school",      type: "string",   isArray: false }, //bullet option with other ______ 
+  11: { name: "lang_prefs",       type: "integer",  isArray: true  },
+  12: { name: "interest_skills",  type: "integer",  isArray: true  }, // ??? maybe
+  13: { name: "lang_importance",  type: "integer",  isArray: false },
+  14: { name: "lang_prefenence",  type: "string",   isArray: false }, // only if 8 or higher on q13
+  15: { name: "proj_ideas",       type: "string",   isArray: false }, 
+  16: { name: "team_lead",        type: "integer",  isArray: false },
+  17: { name: "hours_per_week",   type: "integer",  isArray: false }, // hours/week
+  18: { name: "commitment_lev",   type: "integer",  isArray: false },
+  19: { name: "commitment_exp",   type: "string",   isArray: false },
+  20: { name: "meet_per_week",    type: "string",   isArray: false }, //bullet option with other ______ 
+  21: { name: "curr_responsible", type: "string",   isArray: false },
+  22: { name: "start_date",       type: "integer",  isArray: true  },
+  23: { name: "end_date",         type: "integer",  isArray: true  },
+  24: { name: "bring_to_team",    type: "string",   isArray: false },
+  25: { name: "professional_link",type: "string",   isArray: false },
+  26: { name: "demographics",     type: "string",   isArray: false },
+  27: { name: "partner_prefs",    type: "string",   isArray: false },
+  28: { name: "commit_agreement", type: "boolean",  isArray: false },
+  29: { name: "team_agreement",   type: "string",   isArray: false }, //bullet option with other ______ 
+  30: { name: "rules_agreement",  type: "boolean",  isArray: false },
+  31: { name: "tips",             type: "string",   isArray: false }
+};
 
 // Enables cors support
 const cors = require('cors');
