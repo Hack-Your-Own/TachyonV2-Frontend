@@ -77,11 +77,11 @@ const user_schema = {
   5 : { name: "pronouns",         type: "string",   isArray: false }, //bullet option with other ______ 
   6 : { name: "introduction",     type: "string",   isArray: false },
   7 : { name: "five_years",       type: "string",   isArray: false },
-  8 : { name: "goals",            type: "integer",  isArray: true  },
-  9 : { name: "track",            type: "integer",  isArray: true  }, // if chose project track then array length will be 2 
+  8 : { name: "goals",            type: "string",   isArray: true  },
+  9 : { name: "track",            type: "integer",  isArray: false }, 
   10: { name: "year_school",      type: "string",   isArray: false }, //bullet option with other ______ 
-  11: { name: "lang_prefs",       type: "integer",  isArray: true  },
-  12: { name: "interest_skills",  type: "integer",  isArray: true  }, // ??? maybe
+  11: { name: "lang_prefs",       type: "string",   isArray: true  },
+  12: { name: "interest_skills",  type: "string",   isArray: true  }, // ??? maybe
   13: { name: "lang_importance",  type: "integer",  isArray: false },
   14: { name: "lang_prefenence",  type: "string",   isArray: false }, // only if 8 or higher on q13
   15: { name: "proj_ideas",       type: "string",   isArray: false }, 
@@ -91,8 +91,8 @@ const user_schema = {
   19: { name: "commitment_exp",   type: "string",   isArray: false },
   20: { name: "meet_per_week",    type: "string",   isArray: false }, //bullet option with other ______ 
   21: { name: "curr_responsible", type: "string",   isArray: false },
-  22: { name: "start_date",       type: "integer",  isArray: true  },
-  23: { name: "end_date",         type: "integer",  isArray: true  },
+  22: { name: "start_date",       type: "Date",     isArray: false },
+  23: { name: "end_date",         type: "Date",     isArray: false },
   24: { name: "bring_to_team",    type: "string",   isArray: false },
   25: { name: "professional_link",type: "string",   isArray: false },
   26: { name: "demographics",     type: "string",   isArray: false },
@@ -101,6 +101,44 @@ const user_schema = {
   29: { name: "team_agreement",   type: "string",   isArray: false }, //bullet option with other ______ 
   30: { name: "rules_agreement",  type: "boolean",  isArray: false },
   31: { name: "tips",             type: "string",   isArray: false }
+};
+
+const alt_schema = {
+  data: 
+  [
+    { name: "email",            type: "string",   isArray: false },
+    { name: "discord",          type: "string",   isArray: false },
+    { name: "name",             type: "string",   isArray: false },
+    { name: "region",           type: "integer",  isArray: false }, //3 options
+    { name: "location",         type: "string",   isArray: false }, 
+    { name: "pronouns",         type: "string",   isArray: false }, //bullet option with other ______ 
+    { name: "introduction",     type: "string",   isArray: false },
+    { name: "five_years",       type: "string",   isArray: false },
+    { name: "goals",            type: "string",   isArray: true  },
+    { name: "track",            type: "integer",  isArray: false }, 
+    { name: "year_school",      type: "string",   isArray: false }, //bullet option with other ______ 
+    { name: "lang_prefs",       type: "string",   isArray: true  },
+    { name: "interest_skills",  type: "string",   isArray: true  }, // ??? maybe
+    { name: "lang_importance",  type: "integer",  isArray: false },
+    { name: "lang_prefenence",  type: "string",   isArray: false }, // only if 8 or higher on q13
+    { name: "proj_ideas",       type: "string",   isArray: false }, 
+    { name: "team_lead",        type: "integer",  isArray: false },
+    { name: "hours_per_week",   type: "integer",  isArray: false }, // hours/week
+    { name: "commitment_lev",   type: "integer",  isArray: false },
+    { name: "commitment_exp",   type: "string",   isArray: false },
+    { name: "meet_per_week",    type: "string",   isArray: false }, //bullet option with other ______ 
+    { name: "curr_responsible", type: "string",   isArray: false },
+    { name: "start_date",       type: "Date",     isArray: false },
+    { name: "end_date",         type: "Date",     isArray: false },
+    { name: "bring_to_team",    type: "string",   isArray: false },
+    { name: "professional_link",type: "string",   isArray: false },
+    { name: "demographics",     type: "string",   isArray: false },
+    { name: "partner_prefs",    type: "string",   isArray: false },
+    { name: "commit_agreement", type: "boolean",  isArray: false },
+    { name: "team_agreement",   type: "string",   isArray: false }, //bullet option with other ______ 
+    { name: "rules_agreement",  type: "boolean",  isArray: false },
+    { name: "tips",             type: "string",   isArray: false }
+  ],
 };
 
 // Enables cors support
@@ -119,12 +157,29 @@ app.get('/test', function (req, res) {
 });
 
 app.get('/sheets', function(req, res) {
+  let goals;
+  let langs;
+  let tech_prefs;
+
 
   // Authorize a client with credentials, then call the Google Sheets API.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     authorize(JSON.parse(content), getAllResponses);
   });
+
+  // function assignToArray(table_entry, data) {
+  //   const arrName = dict.arrayName;
+  //   if (arrName == "goals") {
+  //     jsoon[table_entry.name].push(data);
+  //   }
+  //   else if (arrName == "langs") {
+  //     jsoon[table_entry.name].push(data);
+  //   }
+  //   else if (arrName == "fields_of_interest") {
+  //     jsoon[table_entry.name].push(data);
+  //   }
+  // }
 
   // Get all data, including headers, from sheet
   function getAllResponses(auth) {
@@ -141,6 +196,18 @@ app.get('/sheets', function(req, res) {
       let headers = [];
       let jsoon = {};
 
+      //
+      for (let i = 0; i < alt_schema['data'].length; i++) {
+        let field = alt_schema['data'][i].name;
+        if (alt_schema['data'][i].isArray) {
+          jsoon[field] = [];
+        } else {
+          jsoon[field] = "";
+        }
+      }
+
+      // console.log(jsoon);
+
       // Read the first row of data and store all headers, will extract question numbers from these later
       for (let i = 0; i < allData[0].length; i++) {
           headers.push(allData[0][i]);
@@ -148,23 +215,53 @@ app.get('/sheets', function(req, res) {
 
       
       for (let r = 1; r < allData.length; r++) {
-          for (let c = 2; c < 5; c++) {
+          for (let c = 2; c < allData[r].length; c++) {
+              // The timestamp and email do not have a number like "1)" before them
+              // This is why we manually add both to the final "jsoon"
+              jsoon['timestamp'] = allData[r][0];
+              jsoon['email'] = allData[r][1];
+
               // Pick appropriate header that corresponds to each column
               // Split header into text and index, then parse index as int
               // This was we can use the index to search through the user_schema!
+              // console.log(allData[r][c]);
               let header = headers[c];
               let index = header.split(")")[0];
               index = parseInt(index);
 
-              // Find the correct field name from the user_schema according to question number
-              // Populate the "jsoon" that we will be using as a payload to push to Mongo!
-              let field = user_schema[index].name;
-              jsoon[field] = allData[r][c];
+              if (alt_schema['data'][index].isArray) {
+
+                // For any field that is designated as an array
+                // push all data that corresponds to that field
+                // into that fields value in the "jsoon" (which is an array)
+                let field = alt_schema['data'][index].name;
+                jsoon[field].push(allData[r][c]);
+
+              }
+              else {
+
+                // Find the correct field name from the user_schema according to question number
+                // Populate the "jsoon" that we will be using as a payload to push to Mongo!
+                let field = alt_schema['data'][index].name;
+                jsoon[field] = allData[r][c];
+              }
+              
           }
 
           // This is where the call to Mongo will happen, 
-          // right now it is a simple log so you can see how the code works
+          // right now it is a simple log so you can see 
+          // the jsoon (JSON) full of data that will be pushed to Mongo
           console.log(jsoon);
+
+          // Clear all the arrays in the "jsoon" 
+          // for the next set of data
+          for (let i = 0; i < alt_schema['data'].length; i++) {
+            if (alt_schema['data'][i].isArray) {
+              jsoon[alt_schema['data'][i].name] = [];
+            }
+          }
+
+          
       }
 
     });

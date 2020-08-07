@@ -21,13 +21,13 @@ const studentSchema = new mongoose.Schema(
 
     //3
     region: {
-        type: Number,
+        type: String,
         required: true
     },
 
     //4
     location: {
-        type: Array[String],
+        type: String,
         required: true
     },
 
@@ -51,13 +51,13 @@ const studentSchema = new mongoose.Schema(
 
     //8
     goals: {
-        type: Array[Number],
+        type: [String],
         required: true
     },
 
     //9
     track: {
-        type: Array[Number],
+        type: [String],
         required: true
     },
 
@@ -69,13 +69,13 @@ const studentSchema = new mongoose.Schema(
 
     //11
     lang_prefs: {
-        type: Array[Number],
+        type: [String],
         required: false
     },
 
     //12
     interest_skills: {
-        type: Array[Number],
+        type: [String],
         required: false
     },
 
@@ -135,13 +135,13 @@ const studentSchema = new mongoose.Schema(
 
     //22
     start_date: {
-        type: Array[Number],
+        type: Date,
         required: false
     },
 
     //23
     end_date: {
-        type: Array[Number],
+        type: Date,
         required: false
     },
 
