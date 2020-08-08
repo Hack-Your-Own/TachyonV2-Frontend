@@ -81,7 +81,7 @@ const studentSchema = new mongoose.Schema(
 
     //13
     lang_importance: {
-        type: Number,
+        type: String,
         required: false
     },
 
@@ -99,7 +99,7 @@ const studentSchema = new mongoose.Schema(
 
     //16
     team_lead: {
-        type: Number,
+        type: String,
         required: true
     },
 
@@ -111,7 +111,7 @@ const studentSchema = new mongoose.Schema(
 
     //18
     commitment_lev: {
-        type: Number,
+        type: String,
         required: false
     },
 

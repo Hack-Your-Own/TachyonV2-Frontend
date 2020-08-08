@@ -118,7 +118,7 @@ const user_schema = {
     { name: "email",            type: "string",   isArray: false },
     { name: "discord",          type: "string",   isArray: false },
     { name: "name",             type: "string",   isArray: false },
-    { name: "region",           type: "integer",  isArray: false }, //3 options
+    { name: "region",           type: "string",   isArray: false }, //3 options
     { name: "location",         type: "string",   isArray: false }, 
     { name: "pronouns",         type: "string",   isArray: false }, //bullet option with other ______ 
     { name: "introduction",     type: "string",   isArray: false },
@@ -185,7 +185,6 @@ app.get('/sheets', function(req, res) {
       // allData is all the spreadsheet data
       // returned in a multidimensional array!
       allData = res.data.values;
-
       let headers = [];
       let jsoon = {};
 
