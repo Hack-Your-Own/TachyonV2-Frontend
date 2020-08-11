@@ -53,7 +53,10 @@ const CreateTeam = () => {
   return (
     <div className="">
       <Button color="primary" variant="contained">
-        Add to Group
+        Create Team
+      </Button>
+      <Button color="primary" variant="contained">
+        Add User to Team
       </Button>
       <Grid rows={data} columns={columns}>
         <Table />

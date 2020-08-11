@@ -24,7 +24,7 @@ const App = () => {
   };
 
   return (
-    <Container maxWidth="lg" className={classes.background}>
+    <Container maxWidth={false} className={classes.background}>
       <Typography variant="h4" gutterBottom>
         <br />
         Group Management
@@ -35,7 +35,7 @@ const App = () => {
         onChange={handleChange}
         aria-label="tabs"
       >
-        <Tab label="Create Team" {...a11yProps(0)} />
+        <Tab label="Team Matching" {...a11yProps(0)} />
         <Tab label="Delete Team" {...a11yProps(1)} />
         <Tab label="Modify Team" {...a11yProps(2)} />
       </Tabs>
