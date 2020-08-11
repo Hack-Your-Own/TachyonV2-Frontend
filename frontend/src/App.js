@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Paper, Typography, Tabs, Tab, Button } from '@material-ui/core';
+/* eslint-disable no-shadow */
+import React, { useEffect, useState } from "react";
+import { Paper, Typography, Tabs, Tab, Button } from "@material-ui/core";
 import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
+} from "@devexpress/dx-react-grid-material-ui";
 
-const url = 'http://localhost:8080/test';
+const url = "http://localhost:8080/test";
 
 const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 };
 
@@ -20,16 +21,16 @@ const a11yProps = (index) => {
  * @param {String} name
  */
 const makeTitleReadable = (name) => {
-  return name === '_id'
-    ? 'Id'
+  return name === "_id"
+    ? "Id"
     : name
-        .split('_')
+        .split("_")
         .map((word) => {
-          console.log(word);
+          // console.log(word);
           if (word) return word[0].toUpperCase() + word.substring(1);
-          else return '';
+          return "";
         })
-        .join(' ');
+        .join(" ");
 };
 
 const App = () => {
@@ -50,12 +51,13 @@ const App = () => {
     fetchData(url)
       .then((data) => {
         setData(data);
-        let cols = Object.keys(data[0]).map((item) => ({
+        const cols = Object.keys(data[0]).map((item) => ({
           name: item,
           title: makeTitleReadable(item),
         }));
         setColumns(cols);
       })
+      // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
   }, []);
 
