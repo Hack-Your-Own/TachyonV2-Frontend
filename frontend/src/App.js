@@ -1,6 +1,13 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from "react";
-import { Paper, Typography, Tabs, Tab, Button } from "@material-ui/core";
+import {
+  Paper,
+  Typography,
+  Tabs,
+  Tab,
+  Button,
+  Container,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -34,16 +41,7 @@ const makeTitleReadable = (name) => {
         .join(" ");
 };
 
-const useStyles = makeStyles((theme) => ({
-  appWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  app: {
-    maxWidth: theme.breakpoints.values.lg,
-  },
+const useStyles = makeStyles(() => ({
   button: {
     marginTop: "1rem",
     marginBottom: "1rem",
@@ -80,59 +78,57 @@ const App = () => {
   }, []);
 
   return (
-    <div className={classes.appWrapper}>
-      <div className={classes.app}>
-        <Typography variant="h4" gutterBottom>
-          <br />
-          Group Management
-        </Typography>
-        <Tabs
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="tabs"
-        >
-          <Tab label="Create Teams" {...a11yProps(0)} />
-          <Tab label="Modify Teams" {...a11yProps(1)} />
-          <Tab label="Delete Teams" {...a11yProps(2)} />
-        </Tabs>
-        <Paper className={classes.button}>
-          {value === 0 && (
-            <div>
-              <Button color="primary" variant="contained">
-                Add to Group
-              </Button>
-              <Grid rows={data} columns={columns}>
-                <Table />
-                <TableHeaderRow />
-              </Grid>
-            </div>
-          )}
-          {value === 1 && (
-            <div>
-              <Button color="primary" variant="contained">
-                Add to Group
-              </Button>
-              <Grid rows={data} columns={columns}>
-                <Table />
-                <TableHeaderRow />
-              </Grid>
-            </div>
-          )}
-          {value === 2 && (
-            <div>
-              <Button color="primary" variant="contained">
-                Add to Group
-              </Button>
-              <Grid rows={data} columns={columns}>
-                <Table />
-                <TableHeaderRow />
-              </Grid>
-            </div>
-          )}
-        </Paper>
-      </div>
-    </div>
+    <Container maxWidth="lg">
+      <Typography variant="h4" gutterBottom>
+        <br />
+        Group Management
+      </Typography>
+      <Tabs
+        variant="fullWidth"
+        value={value}
+        onChange={handleChange}
+        aria-label="tabs"
+      >
+        <Tab label="Create Teams" {...a11yProps(0)} />
+        <Tab label="Modify Teams" {...a11yProps(1)} />
+        <Tab label="Delete Teams" {...a11yProps(2)} />
+      </Tabs>
+      <Paper className={classes.button}>
+        {value === 0 && (
+          <div>
+            <Button color="primary" variant="contained">
+              Add to Group
+            </Button>
+            <Grid rows={data} columns={columns}>
+              <Table />
+              <TableHeaderRow />
+            </Grid>
+          </div>
+        )}
+        {value === 1 && (
+          <div>
+            <Button color="primary" variant="contained">
+              Add to Group
+            </Button>
+            <Grid rows={data} columns={columns}>
+              <Table />
+              <TableHeaderRow />
+            </Grid>
+          </div>
+        )}
+        {value === 2 && (
+          <div>
+            <Button color="primary" variant="contained">
+              Add to Group
+            </Button>
+            <Grid rows={data} columns={columns}>
+              <Table />
+              <TableHeaderRow />
+            </Grid>
+          </div>
+        )}
+      </Paper>
+    </Container>
   );
 };
 
