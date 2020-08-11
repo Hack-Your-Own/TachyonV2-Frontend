@@ -15,6 +15,23 @@ const a11yProps = (index) => {
   };
 };
 
+/**
+ *
+ * @param {String} name
+ */
+const makeTitleReadable = (name) => {
+  return name === '_id'
+    ? 'Id'
+    : name
+        .split('_')
+        .map((word) => {
+          console.log(word);
+          if (word) return word[0].toUpperCase() + word.substring(1);
+          else return '';
+        })
+        .join(' ');
+};
+
 const App = () => {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -35,10 +52,9 @@ const App = () => {
         setData(data);
         let cols = Object.keys(data[0]).map((item) => ({
           name: item,
-          title: item,
+          title: makeTitleReadable(item),
         }));
         setColumns(cols);
-        console.log(cols);
       })
       .catch((e) => console.log(e));
   }, []);

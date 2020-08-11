@@ -245,7 +245,11 @@ app.get('/sheets', function(req, res) {
           // This is where the call to Mongo will happen, 
           // right now it is a simple log so you can see 
           // the jsoon (JSON) full of data that will be pushed to Mongo
-          console.log(jsoon);
+          Student.create(jsoon).then(function(){ 
+              console.log("Data inserted")  // Success 
+          }).catch(function(error){ 
+              console.log(error)      // Failure 
+          }); 
 
           // Clear all the arrays in the "jsoon" 
           // for the next set of data
@@ -254,10 +258,14 @@ app.get('/sheets', function(req, res) {
               jsoon[user_schema['data'][i].name] = [];
             }
           }
+
+          break;
         }
     });
   } 
 })
+
+
 
 
 connectDb().then(async () => {
