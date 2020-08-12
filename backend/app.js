@@ -374,6 +374,7 @@ app.get('/addLatestUser', function(req, res) {
   } catch(error) {
     console.log(error.message, error.stack);
   }
+  
 })
 
 
