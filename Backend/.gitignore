@@ -116,4 +116,4 @@ dist
 .pnp.*
 
 credentials.json
-.vercel
+token.json
