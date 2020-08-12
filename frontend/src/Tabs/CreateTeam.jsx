@@ -25,8 +25,25 @@ const makeTitleReadable = (name) => {
         .join(" ");
 };
 
+/**
+ *
+ * @param {Object} obj
+ * @param {string[]} keyOrder
+ */
+const orderKey = (obj, keyOrder) => {
+  keyOrder.forEach((k) => {
+    const v = obj[k];
+    // eslint-disable-next-line
+    delete obj[k];
+    // eslint-disable-next-line
+    obj[k] = v;
+  });
+};
+
 const CreateTeam = () => {
+  // eslint-disable-next-line
   const [data, setData] = useState([]);
+  const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -38,9 +55,32 @@ const CreateTeam = () => {
     };
     fetchData(url)
       // eslint-disable-next-line no-shadow
-      .then((data) => {
-        setData(data);
-        const cols = Object.keys(data[0]).map((item) => ({
+      .then((fetchedData) => {
+        setData(fetchedData);
+        const order = Array.from(
+          new Set([
+            "email",
+            "discord",
+            "name",
+            "start_date",
+            "end_date",
+            "track",
+            ...Object.keys(fetchedData[0]),
+            "goals",
+            "createdAt",
+            "updatedAt",
+            "rules_agreement",
+            "__v",
+          ])
+        );
+        const newData = [...fetchedData];
+        newData.forEach((d) => {
+          orderKey(d, order);
+          // eslint-disable-next-line
+          delete d["_id"];
+        });
+        setOrderedData(newData);
+        const cols = Object.keys(newData[0]).map((item) => ({
           name: item,
           title: makeTitleReadable(item),
         }));
@@ -58,7 +98,7 @@ const CreateTeam = () => {
       <Button color="primary" variant="contained">
         Add User to Team
       </Button>
-      <Grid rows={data} columns={columns}>
+      <Grid rows={orderedData} columns={columns}>
         <Table />
         <TableHeaderRow />
       </Grid>
