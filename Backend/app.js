@@ -8,7 +8,10 @@ const connectDb = () => {
 };
 const fs = require('fs');
 const readline = require('readline');
-const {google} = require('googleapis');
+const { google } = require('googleapis');
+const { GoogleAuth } = require('google-auth-library');
+
+
 
 // ------------START GOOGLE SHEETS API CODE--------------
 
@@ -69,6 +72,13 @@ function getNewToken(oAuth2Client, callback) {
   });
 }
 
+async function getAuthToken() {
+  const auth = new google.auth.GoogleAuth({
+    scopes: SCOPES
+  });
+  const authToken = await auth.getClient();
+  return authToken;
+}
 // ------------END GOOGLE SHEETS API CODE--------------
 
 
@@ -261,20 +271,20 @@ app.get('/addAllUsers', function(req, res) {
 
         }
     });
+    res.send("All data inserted"); 
   }
-  res.send("All data inserted"); 
 })
 
 app.get('/addLatestUser', function(req, res) {
 
   // Authorize a client with credentials, then call the Google Sheets API.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) {console.log("creds err"); res.send('Error loading client secret file: ', err);}
-    authorize(JSON.parse(content), getAllResponses);
-  });
+  // fs.readFile('credentials.json', (err, content) => {
+  //   if (err) {console.log("creds err"); res.send('Error loading client secret file: ', err);}
+  //   authorize(JSON.parse(content), getAllResponses);
+  // });
 
   // Get all data, including headers, from sheet
-  function getAllResponses(auth) {
+  function getLatestResponse(auth) {
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
       spreadsheetId: '1s_YEDpl9fBMEhYTdMx9xA3CNzsYY1F68mzlCIzX1leU',
@@ -353,8 +363,17 @@ app.get('/addLatestUser', function(req, res) {
           console.log(error)      // Failure 
       }); 
     });
+    res.send("Latest user added");
   } 
-  res.send("Latest user added");
+
+  try {
+    getAuthToken().then(auth => {
+      getLatestResponse(auth);
+    })
+    
+  } catch(error) {
+    console.log(error.message, error.stack);
+  }
 })
 
 
