@@ -1,13 +1,18 @@
 # GETTING STARTED
- - `cd` to `frontend/`
- - run `yarn install`
- - run `yarn start`  to start the frontend server
 
+- `cd` to `frontend/`
+- run `yarn install`
 
-# Structure 
+**Make sure the backend server is running**
+
+- run `yarn start` to start the frontend server
+- To get eslint linting on your files, you must open `frontend/` through vscode, then vscode will have the lint running.
+
+# Structure
+
 - `index.js` is the "index" and renders the root component
 - `App.js` has the "App" which is the root component
- 
+- `App.js` has a basic [React Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/fundamentals/) setup for now
 
 # Contribution Guide
 
