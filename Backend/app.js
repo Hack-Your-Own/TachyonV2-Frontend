@@ -155,7 +155,7 @@ const cors = require('cors');
 app.use(cors());
 
 app.get('/', function (req, res) {
-  return res.send('Hello world');
+  res.send('Hello world');
 });
 
 app.get('/test', function (req, res) {
@@ -165,11 +165,11 @@ app.get('/test', function (req, res) {
   })
 });
 
-app.get('/sheets', function(req, res) {
+app.get('/addAllUsers', function(req, res) {
 
   // Authorize a client with credentials, then call the Google Sheets API.
   fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
+    if (err) res.send('Error loading client secret file:', err);
     authorize(JSON.parse(content), getAllResponses);
   });
 
@@ -180,7 +180,7 @@ app.get('/sheets', function(req, res) {
       spreadsheetId: '1s_YEDpl9fBMEhYTdMx9xA3CNzsYY1F68mzlCIzX1leU',
       range: 'Form Responses 7!$A$1:$YY',
     }, (err, res) => {
-      if (err) return console.log('The API returned an error: ' + err);
+      if (err) res.send('The API returned an error: ' + err);
 
       // allData is all the spreadsheet data
       // returned in a multidimensional array!
@@ -259,10 +259,102 @@ app.get('/sheets', function(req, res) {
             }
           }
 
-          break;
         }
     });
+  }
+  res.send("All data inserted"); 
+})
+
+app.get('/addLatestUser', function(req, res) {
+
+  // Authorize a client with credentials, then call the Google Sheets API.
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) {console.log("creds err"); res.send('Error loading client secret file: ', err);}
+    authorize(JSON.parse(content), getAllResponses);
+  });
+
+  // Get all data, including headers, from sheet
+  function getAllResponses(auth) {
+    const sheets = google.sheets({version: 'v4', auth});
+    sheets.spreadsheets.values.get({
+      spreadsheetId: '1s_YEDpl9fBMEhYTdMx9xA3CNzsYY1F68mzlCIzX1leU',
+      range: 'Form Responses 7!$A$1:$YY',
+    }, (err, res) => {
+      if (err) {console.log("sheets err"); res.send('The Sheets API returned an error: ' + err);}
+
+      // allData is all the spreadsheet data
+      // returned in a multidimensional array!
+      allData = res.data.values;
+      console.log("Data: " + allData);
+      let headers = [];
+      let jsoon = {};
+
+      // Populate the "jsoon" with empty values (or arrays)
+      for (let i = 0; i < user_schema['data'].length; i++) {
+        let field = user_schema['data'][i].name;
+        if (user_schema['data'][i].isArray) {
+          jsoon[field] = [];
+        } else {
+          jsoon[field] = "";
+        }
+      }
+
+
+      // Read the first row of data and store all headers, will extract question numbers from these later
+      for (let i = 0; i < allData[0].length; i++) {
+          headers.push(allData[0][i]);
+      }
+
+      // Parse allData and build the JSON (named "jsoon") 
+      // with student info that we will send to Mongo
+      r = allData.length - 1;
+      for (let c = 2; c < allData[r].length; c++) {
+
+          // The timestamp and email do not have a number like "1)" before them
+          // This is why we manually add both to the final "jsoon"
+          jsoon['timestamp'] = allData[r][0];
+          jsoon['email'] = allData[r][1];
+
+          // Pick header that corresponds to each column
+          // Split header into text and question number 
+          // then parse question number as int
+          // Use this int to find corresponding 
+          // data in user_schema!
+          let header = headers[c];
+          let index = header.split(")")[0];
+          index = parseInt(index);
+
+          if (user_schema['data'][index].isArray) {
+
+            // For any field that is designated as an array
+            // push all data that corresponds to that field
+            // into that fields value in the "jsoon" (which is an array)
+            let field = user_schema['data'][index].name;
+            jsoon[field].push(allData[r][c]);
+
+          }
+          else {
+
+            // Find the correct field name from the user_schema according to question number
+            // Populate the "jsoon" that we will be using as a payload to push to Mongo!
+            let field = user_schema['data'][index].name;
+            jsoon[field] = allData[r][c];
+          }
+          
+      }
+
+      console.log("jsoon: " + jsoon);
+      // This is where the call to Mongo will happen, 
+      // right now it is a simple log so you can see 
+      // the jsoon (JSON) full of data that will be pushed to Mongo
+      Student.create(jsoon).then(function(){ 
+          console.log("Data inserted")  // Success 
+      }).catch(function(error){ 
+          console.log(error)      // Failure 
+      }); 
+    });
   } 
+  res.send("Latest user added");
 })
 
 
