@@ -6,7 +6,7 @@ import {
   TableHeaderRow,
 } from "@devexpress/dx-react-grid-material-ui";
 
-const url = "http://localhost:8080/test";
+const url = "https://hyo-backend.herokuapp.com/test";
 
 /**
  *
