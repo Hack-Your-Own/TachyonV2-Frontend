@@ -5,11 +5,14 @@ import {
   IntegratedSorting,
   IntegratedSelection,
   SelectionState,
+  FilteringState,
+  IntegratedFiltering,
 } from "@devexpress/dx-react-grid";
 import {
   Grid,
   VirtualTable,
   TableHeaderRow,
+  TableFilterRow,
   TableColumnResizing,
   TableColumnReordering,
   TableSelection,
@@ -96,6 +99,8 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
+        // console.log(columnWidths);
+
         setColumns(cols);
       })
       // eslint-disable-next-line no-console
@@ -124,7 +129,8 @@ const CreateTeam = () => {
         />
         <IntegratedSorting />
         <IntegratedSelection />
-
+        <FilteringState />
+        <IntegratedFiltering />
         <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
         <TableSelection showSelectAll highlightRow />
         <TableColumnReordering
@@ -132,6 +138,7 @@ const CreateTeam = () => {
           onOrderChange={setOrginalOrder}
         />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
+        <TableFilterRow />
         <TableHeaderRow showSortingControls />
       </Grid>
     </div>
