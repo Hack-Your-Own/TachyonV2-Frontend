@@ -16,40 +16,9 @@ import {
   DragDropProvider,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
+import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
 
 const url = "https://hyo-backend.herokuapp.com/test";
-
-/**
- *
- * @param {String} name
- */
-const makeTitleReadable = (name) => {
-  return name === "_id"
-    ? "Id"
-    : name
-        .split("_")
-        .map((word) => {
-          // console.log(word);
-          if (word) return word[0].toUpperCase() + word.substring(1);
-          return "";
-        })
-        .join(" ");
-};
-
-/**
- *
- * @param {Object} obj
- * @param {string[]} keyOrder
- */
-const orderKey = (obj, keyOrder) => {
-  keyOrder.forEach((k) => {
-    const v = obj[k];
-    // eslint-disable-next-line
-    delete obj[k];
-    // eslint-disable-next-line
-    obj[k] = v;
-  });
-};
 
 const CreateTeam = () => {
   const [orderedData, setOrderedData] = useState([]);
@@ -88,8 +57,15 @@ const CreateTeam = () => {
         const newData = [...fetchedData];
         newData.forEach((d) => {
           orderKey(d, order);
+          Object.keys(d).forEach((k) => {
+            // eslint-disable-next-line
+            if ((d[k] == 0 || d[k] === null || d[k][0] == 0) && d[k] !== 0)
+              d[k] = "null";
+          });
           // eslint-disable-next-line
           delete d["_id"];
+          // eslint-disable-next-line
+          delete d["__v"];
         });
         setOrderedData(newData);
         const cols = Object.keys(newData[0]).map((item) => ({
