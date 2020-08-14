@@ -117,7 +117,7 @@ const CreateTeam = () => {
         <IntegratedSelection />
 
         <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
-        <TableSelection showSelectAll />
+        <TableSelection showSelectAll highlightRow />
         <TableColumnReordering
           order={orginalOrder}
           onOrderChange={setOrginalOrder}
