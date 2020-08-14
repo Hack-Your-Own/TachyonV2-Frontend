@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import {
   SortingState,
   IntegratedSorting,
+  IntegratedSelection,
+  SelectionState,
   FilteringState,
   IntegratedFiltering,
 } from "@devexpress/dx-react-grid";
@@ -13,6 +15,7 @@ import {
   TableFilterRow,
   TableColumnResizing,
   TableColumnReordering,
+  TableSelection,
   DragDropProvider,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
@@ -56,6 +59,7 @@ const CreateTeam = () => {
   const [columns, setColumns] = useState([]);
   const [columnWidths] = useState(columnWidthConfig);
   const [orginalOrder, setOrginalOrder] = useState([]);
+  const [selection, setSelection] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -111,13 +115,24 @@ const CreateTeam = () => {
       <Button color="primary" variant="contained">
         Add User to Team
       </Button>
+
+      <Box component="div" m={1}>
+        {selection.length > 0 && `Total rows selected: ${selection.length}`}
+      </Box>
+
       <Grid rows={orderedData} columns={columns}>
         <DragDropProvider />
         <SortingState />
+        <SelectionState
+          selection={selection}
+          onSelectionChange={setSelection}
+        />
         <IntegratedSorting />
+        <IntegratedSelection />
         <FilteringState />
         <IntegratedFiltering />
         <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+        <TableSelection showSelectAll highlightRow />
         <TableColumnReordering
           order={orginalOrder}
           onOrderChange={setOrginalOrder}
