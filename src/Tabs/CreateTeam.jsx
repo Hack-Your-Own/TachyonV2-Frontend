@@ -5,7 +5,9 @@ import {
   Grid,
   Table,
   TableHeaderRow,
+  TableColumnResizing,
 } from "@devexpress/dx-react-grid-material-ui";
+import columnWidthConfig from "../TableConfigs/columnConfigs";
 
 const url = "https://hyo-backend.herokuapp.com/test";
 
@@ -42,10 +44,9 @@ const orderKey = (obj, keyOrder) => {
 };
 
 const CreateTeam = () => {
-  // eslint-disable-next-line
-  const [data, setData] = useState([]);
   const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [columnWidths] = useState(columnWidthConfig);
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -57,7 +58,6 @@ const CreateTeam = () => {
     fetchData(url)
       // eslint-disable-next-line no-shadow
       .then((fetchedData) => {
-        setData(fetchedData);
         const order = Array.from(
           new Set([
             "email",
@@ -85,11 +85,12 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
+        console.log(columnWidths);
+
         setColumns(cols);
       })
-      // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
-  }, []);
+  }, [columnWidths]);
 
   return (
     <div className="">
@@ -102,7 +103,8 @@ const CreateTeam = () => {
       <Grid rows={orderedData} columns={columns}>
         <SortingState />
         <IntegratedSorting />
-        <Table />
+        <Table columnExtensions={columnWidthConfig} />
+        <TableColumnResizing defaultColumnWidths={columnWidths} />
         <TableHeaderRow showSortingControls />
       </Grid>
     </div>
