@@ -3,9 +3,11 @@ import { Button } from "@material-ui/core";
 import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
   TableColumnResizing,
+  TableColumnReordering,
+  DragDropProvider,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 
@@ -47,6 +49,7 @@ const CreateTeam = () => {
   const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [columnWidths] = useState(columnWidthConfig);
+  const [orginalOrder, setOrginalOrder] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -74,6 +77,7 @@ const CreateTeam = () => {
             "__v",
           ])
         );
+        setOrginalOrder(order);
         const newData = [...fetchedData];
         newData.forEach((d) => {
           orderKey(d, order);
@@ -85,10 +89,9 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
-        console.log(columnWidths);
-
         setColumns(cols);
       })
+      // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
   }, [columnWidths]);
 
@@ -101,9 +104,14 @@ const CreateTeam = () => {
         Add User to Team
       </Button>
       <Grid rows={orderedData} columns={columns}>
+        <DragDropProvider />
         <SortingState />
         <IntegratedSorting />
-        <Table columnExtensions={columnWidthConfig} />
+        <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+        <TableColumnReordering
+          order={orginalOrder}
+          onOrderChange={setOrginalOrder}
+        />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
         <TableHeaderRow showSortingControls />
       </Grid>
