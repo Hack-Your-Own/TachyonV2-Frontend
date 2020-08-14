@@ -7,6 +7,8 @@ import {
   SelectionState,
   FilteringState,
   IntegratedFiltering,
+  GroupingState,
+  IntegratedGrouping,
 } from "@devexpress/dx-react-grid";
 import {
   Grid,
@@ -17,6 +19,9 @@ import {
   TableColumnReordering,
   TableSelection,
   DragDropProvider,
+  TableGroupRow,
+  Toolbar,
+  GroupingPanel,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 
@@ -120,27 +125,34 @@ const CreateTeam = () => {
         {selection.length > 0 && `Total rows selected: ${selection.length}`}
       </Box>
 
-      <Grid rows={orderedData} columns={columns}>
-        <DragDropProvider />
-        <SortingState />
-        <SelectionState
-          selection={selection}
-          onSelectionChange={setSelection}
-        />
-        <IntegratedSorting />
-        <IntegratedSelection />
-        <FilteringState />
-        <IntegratedFiltering />
-        <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
-        <TableSelection showSelectAll highlightRow />
-        <TableColumnReordering
-          order={orginalOrder}
-          onOrderChange={setOrginalOrder}
-        />
-        <TableColumnResizing defaultColumnWidths={columnWidths} />
-        <TableFilterRow />
-        <TableHeaderRow showSortingControls />
-      </Grid>
+      {orderedData && (
+        <Grid rows={orderedData} columns={columns}>
+          <DragDropProvider />
+          <SortingState />
+          <SelectionState
+            selection={selection}
+            onSelectionChange={setSelection}
+          />
+          <GroupingState />
+          <FilteringState />
+          <IntegratedSorting />
+          <IntegratedSelection />
+          <IntegratedGrouping />
+          <IntegratedFiltering />
+          <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+          <TableSelection showSelectAll highlightRow />
+          <TableColumnReordering
+            order={orginalOrder}
+            onOrderChange={setOrginalOrder}
+          />
+          <TableColumnResizing defaultColumnWidths={columnWidths} />
+          <TableFilterRow />
+          <TableHeaderRow showSortingControls />
+          <TableGroupRow />
+          <Toolbar />
+          <GroupingPanel showGroupingControls />
+        </Grid>
+      )}
     </div>
   );
 };
