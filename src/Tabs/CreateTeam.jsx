@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
+import {
+  SortingState,
+  IntegratedSorting,
+  IntegratedSelection,
+  SelectionState,
+} from "@devexpress/dx-react-grid";
 import {
   Grid,
   VirtualTable,
   TableHeaderRow,
   TableColumnResizing,
   TableColumnReordering,
+  TableSelection,
   DragDropProvider,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
@@ -106,8 +112,12 @@ const CreateTeam = () => {
       <Grid rows={orderedData} columns={columns}>
         <DragDropProvider />
         <SortingState />
+        <SelectionState />
         <IntegratedSorting />
+        <IntegratedSelection />
+
         <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+        <TableSelection showSelectAll />
         <TableColumnReordering
           order={orginalOrder}
           onOrderChange={setOrginalOrder}
