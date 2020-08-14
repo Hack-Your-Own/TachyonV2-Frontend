@@ -6,7 +6,7 @@ const columnWidthConfig = [
   { columnName: "end_date", width: 200, wordWrapEnabled: true },
   { columnName: "track", width: 100 },
   { columnName: "goals", width: 200 },
-  { columnName: "lang_prefs", width: 250 },
+  { columnName: "lang_prefs", width: 250, wordWrapEnabled: true },
   { columnName: "interest_skills", width: 200, wordWrapEnabled: true },
   { columnName: "region", width: 200 },
   { columnName: "location", width: 200 },
