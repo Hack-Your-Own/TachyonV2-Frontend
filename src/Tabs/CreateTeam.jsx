@@ -6,6 +6,8 @@ import {
   Table,
   TableHeaderRow,
   TableColumnResizing,
+  TableColumnReordering,
+  DragDropProvider,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 
@@ -47,6 +49,7 @@ const CreateTeam = () => {
   const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [columnWidths] = useState(columnWidthConfig);
+  const [orginalOrder, setOrginalOrder] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -74,6 +77,7 @@ const CreateTeam = () => {
             "__v",
           ])
         );
+        setOrginalOrder(order);
         const newData = [...fetchedData];
         newData.forEach((d) => {
           orderKey(d, order);
@@ -85,8 +89,6 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
-        console.log(columnWidths);
-
         setColumns(cols);
       })
       .catch((e) => console.log(e));
@@ -101,9 +103,14 @@ const CreateTeam = () => {
         Add User to Team
       </Button>
       <Grid rows={orderedData} columns={columns}>
+        <DragDropProvider />
         <SortingState />
         <IntegratedSorting />
         <Table columnExtensions={columnWidthConfig} />
+        <TableColumnReordering
+          order={orginalOrder}
+          onOrderChange={setOrginalOrder}
+        />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
         <TableHeaderRow showSortingControls />
       </Grid>
