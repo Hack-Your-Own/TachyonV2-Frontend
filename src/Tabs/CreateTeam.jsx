@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
+import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
 import {
   Grid,
   Table,
@@ -100,9 +101,11 @@ const CreateTeam = () => {
         Add User to Team
       </Button>
       <Grid rows={orderedData} columns={columns}>
+        <SortingState />
+        <IntegratedSorting />
         <Table columnExtensions={columnWidthConfig} />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
-        <TableHeaderRow />
+        <TableHeaderRow showSortingControls />
       </Grid>
     </div>
   );
