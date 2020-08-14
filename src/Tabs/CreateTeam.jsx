@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
+import {
+  SortingState,
+  IntegratedSorting,
+  FilteringState,
+  IntegratedFiltering,
+} from "@devexpress/dx-react-grid";
 import {
   Grid,
   Table,
   TableHeaderRow,
+  TableFilterRow,
   TableColumnResizing,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
@@ -85,10 +91,11 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
-        console.log(columnWidths);
+        // console.log(columnWidths);
 
         setColumns(cols);
       })
+      // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
   }, [columnWidths]);
 
@@ -103,8 +110,11 @@ const CreateTeam = () => {
       <Grid rows={orderedData} columns={columns}>
         <SortingState />
         <IntegratedSorting />
+        <FilteringState />
+        <IntegratedFiltering />
         <Table columnExtensions={columnWidthConfig} />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
+        <TableFilterRow />
         <TableHeaderRow showSortingControls />
       </Grid>
     </div>
