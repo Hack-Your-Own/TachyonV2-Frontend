@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
+import {
+  SortingState,
+  IntegratedSorting,
+  FilteringState,
+  IntegratedFiltering,
+} from "@devexpress/dx-react-grid";
 import {
   Grid,
   VirtualTable,
   TableHeaderRow,
+  TableFilterRow,
   TableColumnResizing,
   TableColumnReordering,
   DragDropProvider,
@@ -89,6 +95,8 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
+        // console.log(columnWidths);
+
         setColumns(cols);
       })
       // eslint-disable-next-line no-console
@@ -107,12 +115,15 @@ const CreateTeam = () => {
         <DragDropProvider />
         <SortingState />
         <IntegratedSorting />
+        <FilteringState />
+        <IntegratedFiltering />
         <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
         <TableColumnReordering
           order={orginalOrder}
           onOrderChange={setOrginalOrder}
         />
         <TableColumnResizing defaultColumnWidths={columnWidths} />
+        <TableFilterRow />
         <TableHeaderRow showSortingControls />
       </Grid>
     </div>
