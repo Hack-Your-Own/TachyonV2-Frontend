@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
   TableColumnResizing,
   TableColumnReordering,
@@ -91,6 +91,7 @@ const CreateTeam = () => {
         }));
         setColumns(cols);
       })
+      // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
   }, [columnWidths]);
 
@@ -106,7 +107,7 @@ const CreateTeam = () => {
         <DragDropProvider />
         <SortingState />
         <IntegratedSorting />
-        <Table columnExtensions={columnWidthConfig} />
+        <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
         <TableColumnReordering
           order={orginalOrder}
           onOrderChange={setOrginalOrder}
