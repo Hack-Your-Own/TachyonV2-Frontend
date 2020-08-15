@@ -1,15 +1,28 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-// Create a theme instance.
 // eslint-disable-next-line import/no-mutable-exports
-let theme = createMuiTheme({
+const lightThemeConfig = {
   palette: {
+    type: "light",
     primary: { main: "#F9A826" },
     secondary: { main: "#F44336" },
-    background: { default: "#fff" },
+    background: { main: "#fff" },
   },
-});
+};
 
-theme = responsiveFontSizes(theme);
+const darkThemeConfig = {
+  palette: {
+    type: "dark",
+  },
+};
 
-export default theme;
+const getThemeByType = (themeType) => {
+  if (themeType === "dark") {
+    const theme = createMuiTheme(darkThemeConfig);
+    return responsiveFontSizes(theme);
+  }
+  const theme = createMuiTheme(lightThemeConfig);
+  return responsiveFontSizes(theme);
+};
+
+export default getThemeByType;
