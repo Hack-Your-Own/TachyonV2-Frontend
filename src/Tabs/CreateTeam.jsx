@@ -76,7 +76,16 @@ const CreateTeam = () => {
         newData.forEach((d) => {
           orderKey(d, order);
           Object.keys(d).forEach((k) => {
-            if ((d[k] === 0 || d[k] === null || d[k][0] === 0) && d[k] !== 0)
+            // eslint-disable-next-line
+            if (Array.isArray(d[k]) && d[k].length === 1) d[k] = d[k][0];
+            if (k === "interest_skills") {
+              // eslint-disable-next-line
+              d[k] = d[k]
+                .split(", ")
+                .filter((val) => val !== "")
+                .join(", ");
+            }
+            if (d[k] === "" || d[k] === null)
               // eslint-disable-next-line
               d[k] = "null";
           });
