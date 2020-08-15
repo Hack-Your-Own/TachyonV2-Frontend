@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
+} from "@material-ui/core";
+
+const CreateTeamButton = ({ selected }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => setOpen(!open);
+
+  const handleSubmit = () => {
+    handleClick();
+    // Connect to backend and do the magic here :)
+  };
+
+  return (
+    <div className="">
+      <Button color="primary" variant="contained" onClick={handleClick}>
+        Create Team
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClick}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Create Team</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please check that these are the students you want to be part of a
+            team.
+          </DialogContentText>
+          <DialogContentText>
+            Total students selected: {selected.length}
+          </DialogContentText>
+          {selected &&
+            selected.map((student) => (
+              <div className="">
+                <DialogContentText>
+                  Name: {student.name}
+                  {<br />}Email: {student.email}
+                </DialogContentText>
+              </div>
+            ))}
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Team Name"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClick} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} variant="contained" color="primary">
+            Create Team
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+CreateTeamButton.propTypes = {
+  selected: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default CreateTeamButton;

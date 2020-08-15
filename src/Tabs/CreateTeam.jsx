@@ -25,6 +25,7 @@ import {
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
+import CreateTeamButton from "../buttons/CreateTeamButton";
 
 const url = "https://hyo-backend.herokuapp.com/test";
 
@@ -34,6 +35,14 @@ const CreateTeam = () => {
   const [columnWidths] = useState(columnWidthConfig);
   const [orginalOrder, setOrginalOrder] = useState([]);
   const [selection, setSelection] = useState([]);
+
+  const [selected, setSelected] = useState([]);
+
+  const onSelection = (choice) => {
+    setSelection(choice);
+    const arrOfStudents = choice.map((i) => orderedData[i]);
+    setSelected(arrOfStudents);
+  };
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -68,6 +77,7 @@ const CreateTeam = () => {
           Object.keys(d).forEach((k) => {
             // eslint-disable-next-line
             if ((d[k] == 0 || d[k] === null || d[k][0] == 0) && d[k] !== 0)
+              // eslint-disable-next-line
               d[k] = "null";
           });
           // eslint-disable-next-line
@@ -90,13 +100,11 @@ const CreateTeam = () => {
 
   return (
     <div className="">
-      <Button color="primary" variant="contained">
-        Create Team
-      </Button>
+      <CreateTeamButton selected={selected} />
+      <br />
       <Button color="primary" variant="contained">
         Add User to Team
       </Button>
-
       <Box component="div" m={1}>
         {selection.length > 0 && `Total rows selected: ${selection.length}`}
       </Box>
@@ -107,7 +115,7 @@ const CreateTeam = () => {
           <SortingState />
           <SelectionState
             selection={selection}
-            onSelectionChange={setSelection}
+            onSelectionChange={onSelection}
           />
           <GroupingState />
           <FilteringState />
