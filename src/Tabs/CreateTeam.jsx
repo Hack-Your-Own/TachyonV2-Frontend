@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Box } from "@material-ui/core";
+import { Button, Box, CircularProgress } from "@material-ui/core";
 import {
   SortingState,
   IntegratedSorting,
@@ -32,6 +32,7 @@ const CreateTeam = () => {
   const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [columnWidths] = useState(columnWidthConfig);
+  const [isLoading, setIsLoading] = useState(true);
   const [orginalOrder, setOrginalOrder] = useState([]);
   const [selection, setSelection] = useState([]);
 
@@ -66,8 +67,8 @@ const CreateTeam = () => {
         newData.forEach((d) => {
           orderKey(d, order);
           Object.keys(d).forEach((k) => {
-            // eslint-disable-next-line
-            if ((d[k] == 0 || d[k] === null || d[k][0] == 0) && d[k] !== 0)
+            if ((d[k] === 0 || d[k] === null || d[k][0] === 0) && d[k] !== 0)
+              // eslint-disable-next-line
               d[k] = "null";
           });
           // eslint-disable-next-line
@@ -76,6 +77,7 @@ const CreateTeam = () => {
           delete d["__v"];
         });
         setOrderedData(newData);
+        setIsLoading(false);
         const cols = Object.keys(newData[0]).map((item) => ({
           name: item,
           title: makeTitleReadable(item),
@@ -87,6 +89,10 @@ const CreateTeam = () => {
       // eslint-disable-next-line no-console
       .catch((e) => console.log(e));
   }, [columnWidths]);
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <div className="">

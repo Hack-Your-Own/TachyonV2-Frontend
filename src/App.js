@@ -7,11 +7,15 @@ import CreateTeam from "./Tabs/CreateTeam";
 import DeleteTeam from "./Tabs/DeleteTeam";
 import ModifyTeam from "./Tabs/ModifyTeam";
 
-// const url = "http://localhost:8080/test";
-
 const useStyles = makeStyles(() => ({
   background: {
     backgroundColor: "#f9f9f9",
+  },
+  padding: {
+    padding: "0 1rem",
+  },
+  bold: {
+    fontWeight: "bold",
   },
 }));
 
@@ -25,11 +29,16 @@ const App = () => {
 
   return (
     <Container maxWidth={false} className={classes.background}>
-      <Typography variant="h4" gutterBottom>
+      <Typography
+        variant="h4"
+        gutterBottom
+        className={`${classes.padding} ${classes.bold}`}
+      >
         <br />
         Group Management
       </Typography>
       <Tabs
+        className={classes.padding}
         variant="fullWidth"
         value={value}
         onChange={handleChange}
