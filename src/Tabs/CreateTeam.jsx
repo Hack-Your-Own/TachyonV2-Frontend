@@ -25,6 +25,7 @@ import {
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
+import CreateTeamButton from "../buttons/CreateTeamButton";
 
 const url = "https://hyo-backend.herokuapp.com/test";
 
@@ -35,6 +36,14 @@ const CreateTeam = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [orginalOrder, setOrginalOrder] = useState([]);
   const [selection, setSelection] = useState([]);
+
+  const [selected, setSelected] = useState([]);
+
+  const onSelection = (choice) => {
+    setSelection(choice);
+    const arrOfStudents = choice.map((i) => orderedData[i]);
+    setSelected(arrOfStudents);
+  };
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
@@ -96,15 +105,13 @@ const CreateTeam = () => {
 
   return (
     <div className="">
-      <Button color="primary" variant="contained">
-        Create Team
-      </Button>
+      <CreateTeamButton selected={selected} />
+      <br />
       <Button color="primary" variant="contained">
         Add User to Team
       </Button>
-
       <Box component="div" m={1}>
-        {selection.length > 0 && `Total rows selected: ${selection.length}`}
+        Total rows selected: {selection.length}
       </Box>
 
       {orderedData && (
@@ -113,7 +120,7 @@ const CreateTeam = () => {
           <SortingState />
           <SelectionState
             selection={selection}
-            onSelectionChange={setSelection}
+            onSelectionChange={onSelection}
           />
           <GroupingState />
           <FilteringState />
@@ -121,7 +128,7 @@ const CreateTeam = () => {
           <IntegratedSelection />
           <IntegratedGrouping />
           <IntegratedFiltering />
-          <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+          <VirtualTable columnExtensions={columnWidthConfig} height="70vh" />
           <TableSelection showSelectAll highlightRow />
           <TableColumnReordering
             order={orginalOrder}
