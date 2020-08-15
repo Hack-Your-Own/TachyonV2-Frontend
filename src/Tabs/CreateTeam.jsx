@@ -106,7 +106,7 @@ const CreateTeam = () => {
         Add User to Team
       </Button>
       <Box component="div" m={1}>
-        {selection.length > 0 && `Total rows selected: ${selection.length}`}
+        Total rows selected: {selection.length}
       </Box>
 
       {orderedData && (
@@ -123,7 +123,7 @@ const CreateTeam = () => {
           <IntegratedSelection />
           <IntegratedGrouping />
           <IntegratedFiltering />
-          <VirtualTable columnExtensions={columnWidthConfig} height="80vh" />
+          <VirtualTable columnExtensions={columnWidthConfig} height="70vh" />
           <TableSelection showSelectAll highlightRow />
           <TableColumnReordering
             order={orginalOrder}
