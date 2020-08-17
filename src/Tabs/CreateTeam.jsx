@@ -87,7 +87,7 @@ const CreateTeam = () => {
                 .filter((val) => val !== "")
                 .join(", ");
             }
-            if (d[k] === "" || d[k] === null)
+            if (d[k] === "" || d[k] === null || d[k] === "undefined")
               // eslint-disable-next-line
               d[k] = "null";
           });
