@@ -21,12 +21,14 @@ const CreateTeamButton = ({ selected }) => {
   const handleSubmit = () => {
     handleClick();
     const memberList = selected.map((student) =>
+      // Remove the "<@" and ">".
       student.discord_id.replace(/\D/g, "")
     );
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
+    // Send POST REQ to URL.
     xhr.send(
       JSON.stringify({
         teamName,
