@@ -1,6 +1,8 @@
 const columnWidthConfig = [
   { columnName: "email", width: 250 },
   { columnName: "discord", width: 200 },
+  { columnName: "discord_id", width: 200 },
+  { columnName: "team_name", width: 200 },
   { columnName: "name", width: 200 },
   { columnName: "start_date", width: 200, wordWrapEnabled: true },
   { columnName: "end_date", width: 200, wordWrapEnabled: true },

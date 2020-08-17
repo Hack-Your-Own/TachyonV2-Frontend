@@ -59,6 +59,8 @@ const CreateTeam = () => {
           new Set([
             "email",
             "discord",
+            "discord_id",
+            "team_name",
             "name",
             "start_date",
             "end_date",
