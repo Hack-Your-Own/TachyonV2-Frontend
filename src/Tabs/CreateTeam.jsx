@@ -22,6 +22,7 @@ import {
   TableGroupRow,
   Toolbar,
   GroupingPanel,
+  TableFixedColumns,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
@@ -140,7 +141,7 @@ const CreateTeam = () => {
           <IntegratedGrouping />
           <IntegratedFiltering />
           <VirtualTable columnExtensions={columnWidthConfig} height="70vh" />
-          <TableSelection showSelectAll highlightRow />
+          <TableSelection showSelectAll highlightRow selectByRowClick />
           <TableColumnReordering
             order={orginalOrder}
             onOrderChange={setOrginalOrder}
@@ -149,6 +150,7 @@ const CreateTeam = () => {
           <TableFilterRow />
           <TableHeaderRow showSortingControls />
           <TableGroupRow />
+          <TableFixedColumns leftColumns={["email"]} />
           <Toolbar />
           <GroupingPanel showGroupingControls />
         </Grid>
