@@ -74,7 +74,6 @@ const CreateTeam = () => {
             "__v",
           ])
         );
-        console.log(order);
         setOrginalOrder(order);
         const newData = [...fetchedData];
 

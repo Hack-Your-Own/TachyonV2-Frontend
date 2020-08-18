@@ -31,8 +31,6 @@ const columnWidthConfig = [
   { columnName: "team_agreement", width: 200 },
   { columnName: "rules_agreement", width: 200 },
   { columnName: "tips", width: 200 },
-  { columnName: "discord_id", width: 200 },
-  { columnName: "team_name", width: 200 },
   { columnName: "createdAt", width: 200, wordWrapEnabled: true },
   { columnName: "updatedAt", width: 200, wordWrapEnabled: true },
 ];
