@@ -71,8 +71,10 @@ const CreateTeam = () => {
             "__v",
           ])
         );
+        console.log(order);
         setOrginalOrder(order);
         const newData = [...fetchedData];
+
         newData.forEach((d) => {
           orderKey(d, order);
           Object.keys(d).forEach((k) => {
@@ -100,7 +102,6 @@ const CreateTeam = () => {
           name: item,
           title: makeTitleReadable(item),
         }));
-        // console.log(columnWidths);
 
         setColumns(cols);
       })
@@ -143,7 +144,7 @@ const CreateTeam = () => {
             order={orginalOrder}
             onOrderChange={setOrginalOrder}
           />
-          <TableColumnResizing defaultColumnWidths={columnWidths} />
+          <TableColumnResizing defaultColumnWidths={columnWidthConfig} />
           <TableFilterRow />
           <TableHeaderRow showSortingControls />
           <TableGroupRow />
