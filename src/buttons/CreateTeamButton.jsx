@@ -10,14 +10,31 @@ import {
   DialogActions,
 } from "@material-ui/core";
 
+const url = "https://hyo-backend.herokuapp.com/discord/CreateTeam";
+
 const CreateTeamButton = ({ selected }) => {
   const [open, setOpen] = useState(false);
+  const [teamName, setTeamName] = useState("");
 
   const handleClick = () => setOpen(!open);
 
   const handleSubmit = () => {
     handleClick();
-    // Connect to backend and do the magic here :)
+    const memberList = selected.map((student) =>
+      // Remove the "<@" and ">".
+      student.discord_id.replace(/\D/g, "")
+    );
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    // Send POST REQ to URL.
+    xhr.send(
+      JSON.stringify({
+        teamName,
+        memberList,
+      })
+    );
   };
 
   return (
@@ -54,6 +71,7 @@ const CreateTeamButton = ({ selected }) => {
             id="name"
             label="Team Name"
             fullWidth
+            onChange={(event) => setTeamName(event.target.value)}
           />
         </DialogContent>
         <DialogActions>

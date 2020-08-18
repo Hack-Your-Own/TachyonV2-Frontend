@@ -22,6 +22,7 @@ import {
   TableGroupRow,
   Toolbar,
   GroupingPanel,
+  TableFixedColumns,
 } from "@devexpress/dx-react-grid-material-ui";
 import columnWidthConfig from "../TableConfigs/columnConfigs";
 import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
@@ -59,6 +60,8 @@ const CreateTeam = () => {
           new Set([
             "email",
             "discord",
+            "discord_id",
+            "team_name",
             "name",
             "start_date",
             "end_date",
@@ -71,7 +74,6 @@ const CreateTeam = () => {
             "__v",
           ])
         );
-        console.log(order);
         setOrginalOrder(order);
         const newData = [...fetchedData];
 
@@ -87,7 +89,7 @@ const CreateTeam = () => {
                 .filter((val) => val !== "")
                 .join(", ");
             }
-            if (d[k] === "" || d[k] === null)
+            if (d[k] === "" || d[k] === null || d[k] === "undefined")
               // eslint-disable-next-line
               d[k] = "null";
           });
@@ -139,7 +141,7 @@ const CreateTeam = () => {
           <IntegratedGrouping />
           <IntegratedFiltering />
           <VirtualTable columnExtensions={columnWidthConfig} height="70vh" />
-          <TableSelection showSelectAll highlightRow />
+          <TableSelection showSelectAll highlightRow selectByRowClick />
           <TableColumnReordering
             order={orginalOrder}
             onOrderChange={setOrginalOrder}
@@ -148,6 +150,7 @@ const CreateTeam = () => {
           <TableFilterRow />
           <TableHeaderRow showSortingControls />
           <TableGroupRow />
+          <TableFixedColumns leftColumns={["email"]} />
           <Toolbar />
           <GroupingPanel showGroupingControls />
         </Grid>
