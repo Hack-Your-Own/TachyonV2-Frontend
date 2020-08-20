@@ -117,15 +117,15 @@ const CreateTeam = () => {
 
   return (
     <div className="">
-      <CreateTeamButton selected={selected} />
-      <br />
-      <Button color="primary" variant="contained">
-        Add Student to Team
-      </Button>
-      <Box component="div" m={1}>
-        Total rows selected: {selection.length}
+      <Box display="flex" justifyContent="space-evenly">
+        <CreateTeamButton selected={selected} />
+        <Button color="primary" variant="contained">
+          Add Student to Team
+        </Button>
+        <Box component="div" m={1}>
+          Total rows selected: {selection.length}
+        </Box>
       </Box>
-
       {orderedData && (
         <Grid rows={orderedData} columns={columns}>
           <DragDropProvider />
