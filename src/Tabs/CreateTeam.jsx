@@ -120,7 +120,7 @@ const CreateTeam = () => {
       <CreateTeamButton selected={selected} />
       <br />
       <Button color="primary" variant="contained">
-        Add User to Team
+        Add Student to Team
       </Button>
       <Box component="div" m={1}>
         Total rows selected: {selection.length}
