@@ -66,7 +66,7 @@ const App = () => {
               className={`${classes.padding} ${classes.bold}`}
               display="inline"
             >
-              Group Management
+              Team Management
             </Typography>
 
             <Box component="span">
