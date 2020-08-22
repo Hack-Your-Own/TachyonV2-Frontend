@@ -38,17 +38,15 @@ const App = () => {
   const [value, setValue] = useState(0);
   const [darkState, toggleDarkState] = useDarkState(false);
 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <ThemeProvider theme={getThemeByName(darkState ? "dark" : "light")}>
+    <ThemeProvider theme={getThemeByName("light")}>
       <Paper style={{ height: "100%" }}>
-        <Container
-          maxWidth={false}
-          className={!darkState && classes.background}
-        >
+        <Container maxWidth={false} className={classes.background}>
           <Grid
             display="inline"
             container
@@ -65,6 +63,7 @@ const App = () => {
               Team Management
             </Typography>
           </Grid>
+          />
           <Tabs
             className={classes.padding}
             variant="fullWidth"
@@ -77,6 +76,7 @@ const App = () => {
             <Tab label="Modify Team" {...a11yProps(2)} />
             <Tab label="Settings" {...a11yProps(3)} />
           </Tabs>
+
           <TabPanel value={value} index={0}>
             <CreateTeam />
           </TabPanel>

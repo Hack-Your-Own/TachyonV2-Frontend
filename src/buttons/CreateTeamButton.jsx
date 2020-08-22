@@ -38,7 +38,7 @@ const CreateTeamButton = ({ selected }) => {
   };
 
   return (
-    <div className="">
+    <div>
       <Button color="primary" variant="contained" onClick={handleClick}>
         Create Team
       </Button>
