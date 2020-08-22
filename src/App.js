@@ -1,15 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from "react";
-import {
-  Grid,
-  Typography,
-  Tabs,
-  Tab,
-  Container,
-  Paper,
-  Switch,
-  Box,
-} from "@material-ui/core";
+import { Grid, Tabs, Tab, Container, Paper } from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { TabPanel, a11yProps } from "./components/Tabs";
 import CreateTeam from "./Tabs/CreateTeam";
@@ -36,44 +27,23 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [darkState, setDarkState] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleThemeChange = () => {
-    setDarkState(!darkState);
-  };
-
   return (
-    <ThemeProvider theme={getThemeByName(darkState ? "dark" : "light")}>
+    <ThemeProvider theme={getThemeByName("light")}>
       <Paper style={{ height: "100%" }}>
-        <Container
-          maxWidth={false}
-          className={!darkState && classes.background}
-        >
+        <Container maxWidth={false} className={classes.background}>
           <Grid
             display="inline"
             container
             justify="space-between"
             direction="row"
             alignItems="center"
-          >
-            <Typography
-              variant="h4"
-              gutterBottom
-              className={`${classes.padding} ${classes.bold}`}
-              display="inline"
-            >
-              Team Management
-            </Typography>
+          />
 
-            <Box component="span">
-              <span>Dark Mode</span>
-              <Switch checked={darkState} onChange={handleThemeChange} />
-            </Box>
-          </Grid>
           <Tabs
             className={classes.padding}
             variant="fullWidth"
@@ -85,6 +55,7 @@ const App = () => {
             <Tab label="Delete Team" {...a11yProps(1)} />
             <Tab label="Modify Team" {...a11yProps(2)} />
           </Tabs>
+
           <TabPanel value={value} index={0}>
             <CreateTeam />
           </TabPanel>
