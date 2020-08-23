@@ -1,6 +1,5 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-// eslint-disable-next-line import/no-mutable-exports
 const lightThemeConfig = {
   palette: {
     type: "light",
