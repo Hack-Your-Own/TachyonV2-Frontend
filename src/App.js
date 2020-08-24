@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#f9f9f9",
   },
   padding: {
-    padding: "1rem",
+    padding: "1rem 1rem 1rem 0",
   },
   bold: {
     fontWeight: "bold",
