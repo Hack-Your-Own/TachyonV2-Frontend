@@ -8,6 +8,7 @@ import {
   DialogContentText,
   TextField,
   DialogActions,
+  Typography,
 } from "@material-ui/core";
 
 const url = "https://hyo-backend.herokuapp.com/discord/CreateTeam";
@@ -15,26 +16,45 @@ const url = "https://hyo-backend.herokuapp.com/discord/CreateTeam";
 const CreateTeamButton = ({ selected }) => {
   const [open, setOpen] = useState(false);
   const [teamName, setTeamName] = useState("");
+  const [error, setError] = useState("");
 
-  const handleClick = () => setOpen(!open);
+  const handleClick = () => {
+    console.log("handleclick happend");
+    if (open) {
+      setError("");
+    }
+    setOpen(!open);
+  };
 
   const handleSubmit = () => {
-    handleClick();
-    const memberList = selected.map((student) =>
-      // Remove the "<@" and ">".
-      student.discord_id.replace(/\D/g, "")
-    );
+    if (teamName.trim() === "") {
+      setError("Team name is required!");
+    }
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    // Send POST REQ to URL.
-    xhr.send(
-      JSON.stringify({
-        teamName,
-        memberList,
-      })
-    );
+    const memberList = selected.map((student) => {
+      if (student.discord_id === "null") {
+        setError(
+          `discord_id for ${student.name} is null. Create team function will not work properly. `
+        );
+      }
+      // Remove the "<@" and ">".
+      return student.discord_id.replace(/\D/g, "");
+    });
+
+    if (error.length === 0 && teamName.trim().length > 0) {
+      console.log(error.length);
+      handleClick();
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      // Send POST REQ to URL.
+      xhr.send(
+        JSON.stringify({
+          teamName,
+          memberList,
+        })
+      );
+    }
   };
 
   return (
@@ -71,8 +91,11 @@ const CreateTeamButton = ({ selected }) => {
             id="name"
             label="Team Name"
             fullWidth
+            required
             onChange={(event) => setTeamName(event.target.value)}
           />
+
+          {error && <Typography color="error">{error}</Typography>}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick} color="primary">
