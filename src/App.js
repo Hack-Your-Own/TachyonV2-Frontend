@@ -50,7 +50,7 @@ const App = () => {
             aria-label="tabs"
           >
             <Tab label="Student Matching" {...a11yProps(0)} />
-            <Tab label="Team Management" {...a11yProps(1)} {...a11yProps(2)} />
+            <Tab label="Team Management" {...a11yProps(1)} />
           </Tabs>
 
           <TabPanel value={value} index={0}>
