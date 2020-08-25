@@ -10,7 +10,6 @@ const makeTitleReadable = (name) => {
   return name
     .split("_")
     .map((word) => {
-      // console.log(word);
       if (word) return word[0].toUpperCase() + word.substring(1);
       return "";
     })
@@ -18,13 +17,13 @@ const makeTitleReadable = (name) => {
 };
 
 /**
- * @param {String} name
+ * @param {String} isoString
  */
 const parseISODates = (isoString) => {
   if (!isoString) {
     return "";
   }
-  return new Date(isoString).toString();
+  return new Date(isoString).toLocaleDateString("en-US");
 };
 
 /**

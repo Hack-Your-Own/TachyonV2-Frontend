@@ -35,4 +35,8 @@ const columnWidthConfig = [
   { columnName: "updatedAt", width: 200, wordWrapEnabled: true },
 ];
 
+export const groupingCountConfig = [
+  { columnName: "track", type: "count", showInGroupFooter: false },
+];
+
 export default columnWidthConfig;

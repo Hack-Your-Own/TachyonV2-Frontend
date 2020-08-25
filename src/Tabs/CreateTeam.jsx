@@ -7,6 +7,8 @@ import {
   SelectionState,
   FilteringState,
   IntegratedFiltering,
+  IntegratedSummary,
+  SummaryState,
   GroupingState,
   IntegratedGrouping,
 } from "@devexpress/dx-react-grid";
@@ -24,7 +26,9 @@ import {
   GroupingPanel,
   TableFixedColumns,
 } from "@devexpress/dx-react-grid-material-ui";
-import columnWidthConfig from "../TableConfigs/columnConfigs";
+import columnWidthConfig, {
+  groupingCountConfig,
+} from "../TableConfigs/columnConfigs";
 import { makeTitleReadable, orderKey } from "../util/dataParserUtils";
 import CreateTeamButton from "../buttons/CreateTeamButton";
 
@@ -135,10 +139,14 @@ const CreateTeam = () => {
             onSelectionChange={onSelection}
           />
           <GroupingState />
+          <SummaryState groupItems={groupingCountConfig} />
+
           <FilteringState />
           <IntegratedSorting />
           <IntegratedSelection />
           <IntegratedGrouping />
+          <IntegratedSummary />
+
           <IntegratedFiltering />
           <VirtualTable columnExtensions={columnWidthConfig} height="70vh" />
           <TableSelection showSelectAll highlightRow selectByRowClick />
