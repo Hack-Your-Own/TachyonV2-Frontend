@@ -1,11 +1,16 @@
 /* eslint-disable no-shadow */
 import React, { useState } from "react";
-import { Tabs, Tab, Container, Paper } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Typography,
+  Tabs,
+  Tab,
+  Paper,
+} from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { TabPanel, a11yProps } from "./components/Tabs";
 import CreateTeam from "./Tabs/CreateTeam";
-import DeleteTeam from "./Tabs/DeleteTeam";
-import ModifyTeam from "./Tabs/ModifyTeam";
 import getThemeByName from "./theme";
 import Settings from "./Tabs/Settings";
 import useDarkState from "./util/useDarkState";
@@ -49,22 +54,15 @@ const App = () => {
             onChange={handleChange}
             aria-label="tabs"
           >
-            <Tab label="Team Matching" {...a11yProps(0)} />
-            <Tab label="Delete Team" {...a11yProps(1)} />
-            <Tab label="Modify Team" {...a11yProps(2)} />
-            <Tab label="Settings" {...a11yProps(3)} />
+            <Tab label="Student Matching" {...a11yProps(0)} />
+            <Tab label="Team Management" {...a11yProps(1)} />
+            <Tab label="Settings" {...a11yProps(2)} />
           </Tabs>
 
           <TabPanel value={value} index={0}>
             <CreateTeam />
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <DeleteTeam />
-          </TabPanel>
           <TabPanel value={value} index={2}>
-            <ModifyTeam />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
             <Settings darkState={darkState} toggleDarkState={toggleDarkState} />
           </TabPanel>
         </Container>
