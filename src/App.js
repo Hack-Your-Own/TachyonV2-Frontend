@@ -1,13 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from "react";
-import {
-  Grid,
-  Typography,
-  Tabs,
-  Tab,
-  Container,
-  Paper,
-} from "@material-ui/core";
+import { Tabs, Tab, Container, Paper } from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { TabPanel, a11yProps } from "./components/Tabs";
 import CreateTeam from "./Tabs/CreateTeam";
@@ -49,22 +42,6 @@ const App = () => {
           maxWidth={false}
           className={!darkState && classes.background}
         >
-          <Grid
-            display="inline"
-            container
-            justify="space-between"
-            direction="row"
-            alignItems="center"
-          >
-            <Typography
-              variant="h4"
-              gutterBottom
-              className={`${classes.padding} ${classes.bold}`}
-              display="inline"
-            >
-              Team Management
-            </Typography>
-          </Grid>
           <Tabs
             className={classes.padding}
             variant="fullWidth"
