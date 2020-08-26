@@ -151,7 +151,12 @@ const CreateTeam = () => {
           <FilteringState
             defaultFilters={[
               { columnName: "team_name", value: "null" },
-              { columnName: "start_date", value: dayjs().format("L") },
+              {
+                columnName: "start_date",
+                value: `${dayjs().format("L")} - ${dayjs()
+                  .add(3, "day")
+                  .format("L")}`,
+              },
             ]}
           />
           <IntegratedSorting />
