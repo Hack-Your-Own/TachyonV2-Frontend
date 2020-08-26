@@ -47,22 +47,6 @@ const App = () => {
           maxWidth={false}
           className={!darkState && classes.background}
         >
-          <Grid
-            display="inline"
-            container
-            justify="space-between"
-            direction="row"
-            alignItems="center"
-          >
-            <Typography
-              variant="h4"
-              gutterBottom
-              className={`${classes.padding} ${classes.bold}`}
-              display="inline"
-            >
-              Team Management
-            </Typography>
-          </Grid>
           <Tabs
             className={classes.padding}
             variant="fullWidth"
