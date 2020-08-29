@@ -19,7 +19,6 @@ const CreateTeamButton = ({ selected }) => {
   const [error, setError] = useState("");
 
   const handleClick = () => {
-    console.log("handleclick happend");
     if (open) {
       setError("");
     }
@@ -78,7 +77,7 @@ const CreateTeamButton = ({ selected }) => {
           </DialogContentText>
           {selected &&
             selected.map((student) => (
-              <div className="">
+              <div className="" key={student.createdAt}>
                 <DialogContentText>
                   Name: {student.name}
                   {<br />}Email: {student.email}

@@ -1,13 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useState } from "react";
-import {
-  Container,
-  Grid,
-  Typography,
-  Tabs,
-  Tab,
-  Paper,
-} from "@material-ui/core";
+import { Container, Tabs, Tab, Paper } from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { TabPanel, a11yProps } from "./components/Tabs";
 import CreateTeam from "./Tabs/CreateTeam";

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Box, CircularProgress } from "@material-ui/core";
 import {
+  EditingState,
   SortingState,
   IntegratedSorting,
   IntegratedSelection,
@@ -25,6 +26,8 @@ import {
   Toolbar,
   GroupingPanel,
   TableFixedColumns,
+  TableEditRow,
+  TableInlineCellEditing,
 } from "@devexpress/dx-react-grid-material-ui";
 import dayjs from "dayjs";
 import columnWidthConfig, {
@@ -37,16 +40,34 @@ import dateFilterPredicate from "../util/dateUtils";
 const url = "https://hyo-backend.herokuapp.com/test";
 
 const CreateTeam = () => {
-  const [orderedData, setOrderedData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [columnWidths] = useState(columnWidthConfig);
   const [isLoading, setIsLoading] = useState(true);
   const [integratedFilteringColumnExtensions] = useState([
     { columnName: "start_date", predicate: dateFilterPredicate },
   ]);
+  const [orderedData, setOrderedData] = useState([]);
   const [orginalOrder, setOrginalOrder] = useState([]);
   const [selection, setSelection] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  const [editingRowIds, setEditingRowIds] = useState([]);
+  const [rowChanges, setRowChanges] = useState({});
+  const commitChanges = ({ changed }) => {
+    let changedRows;
+    let updatedRowData;
+    if (changed) {
+      changedRows = orderedData.map((row, i) => {
+        updatedRowData = { ...row, ...changed[i] };
+        return changed[i] ? updatedRowData : row;
+      });
+    }
+
+    // TODO: Add a function to update data in the backend
+
+    // Updates data locally
+    setOrderedData(changedRows);
+  };
 
   const onSelection = (choice) => {
     setSelection(choice);
@@ -135,6 +156,13 @@ const CreateTeam = () => {
       {orderedData && (
         <Grid rows={orderedData} columns={columns}>
           <DragDropProvider />
+          <EditingState
+            editingRowIds={editingRowIds}
+            onEditingRowIdsChange={setEditingRowIds}
+            rowChanges={rowChanges}
+            onRowChangesChange={setRowChanges}
+            onCommitChanges={commitChanges}
+          />
           <SortingState />
           <SelectionState
             selection={selection}
@@ -176,6 +204,8 @@ const CreateTeam = () => {
           <TableColumnResizing defaultColumnWidths={columnWidthConfig} />
           <TableFilterRow />
           <TableHeaderRow showSortingControls />
+          <TableEditRow />
+          <TableInlineCellEditing startEditAction="doubleClick" />
           <TableGroupRow />
           <TableFixedColumns leftColumns={["email"]} />
           <Toolbar />
