@@ -120,10 +120,21 @@ const CreateTeam = () => {
               // eslint-disable-next-line
               d[k] = "null";
           });
-          // eslint-disable-next-line
-          delete d["_id"];
-          // eslint-disable-next-line
-          delete d["__v"];
+          [
+            "_id",
+            "__v",
+            "name",
+            "goals",
+            "location",
+            "pronouns",
+            "introduction",
+            "five_years",
+            "year_school",
+            "demographics",
+            "tips",
+            "professional_link",
+            // eslint-disable-next-line
+          ].forEach((clmn) => delete d[clmn]);
         });
         setOrderedData(newData);
 
