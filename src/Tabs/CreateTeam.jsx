@@ -89,16 +89,15 @@ const CreateTeam = () => {
             "discord",
             "discord_id",
             "team_name",
-            "name",
             "start_date",
             "end_date",
             "track",
+            "lang_prefs",
+            "lang_importance",
             ...Object.keys(fetchedData[0]),
-            "goals",
             "createdAt",
             "updatedAt",
             "rules_agreement",
-            "__v",
           ])
         );
         setOrginalOrder(order);
