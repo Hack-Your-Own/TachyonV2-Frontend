@@ -94,6 +94,14 @@ const CreateTeam = () => {
             "track",
             "lang_prefs",
             "lang_importance",
+            "Android Development",
+            "iOS development",
+            "Cloud (AWS/Google Cloud/Azure)",
+            "DevOps (Docker, Jenkins, Ci/CD, etc.)",
+            "AI/ML",
+            "Data Science/Data Analysis",
+            "Embedded/IoT",
+            "AR/VR",
             ...Object.keys(fetchedData[0]),
             "createdAt",
             "updatedAt",
@@ -110,10 +118,20 @@ const CreateTeam = () => {
             if (Array.isArray(d[k]) && d[k].length === 1) d[k] = d[k][0];
             if (k === "interest_skills") {
               // eslint-disable-next-line
-              d[k] = d[k]
-                .split(", ")
-                .filter((val) => val !== "")
-                .join(", ");
+              d[k] = d[k].split(", ").forEach((val, index) => {
+                const lookup = [
+                  "Android Development",
+                  "iOS development",
+                  "Cloud (AWS/Google Cloud/Azure)",
+                  "DevOps (Docker, Jenkins, Ci/CD, etc.)",
+                  "AI/ML",
+                  "Data Science/Data Analysis",
+                  "Embedded/IoT",
+                  "AR/VR",
+                ];
+                // eslint-disable-next-line no-param-reassign
+                d[lookup[index]] = val || "null";
+              });
             }
             if (d[k] === "" || d[k] === null || d[k] === "undefined")
               // eslint-disable-next-line
@@ -132,6 +150,7 @@ const CreateTeam = () => {
             "demographics",
             "tips",
             "professional_link",
+            "interest_skills",
             // eslint-disable-next-line
           ].forEach((clmn) => delete d[clmn]);
         });
